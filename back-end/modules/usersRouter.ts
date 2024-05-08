@@ -99,7 +99,26 @@ usuariosRouter.post("/",(req:Request,res:Response)=>{
     res.json({"message":"exito"}) 
 })
 
+//modifica propiedades parcial del usuario
 usuariosRouter.put("/:id",(req,res)=>{
+    let {id} = req.params;
+    let sql ="UPDATE users SET ?? WHERE ID = *";
+    sql = sql.replace('*',id)
+    let dataBody = JSON.stringify(req.body)
+    dataBody = dataBody.replace('{',' ')
+    dataBody = dataBody.replace('}',' ')
+    dataBody = dataBody.replace(/[:]+/g, '=');
+    sql = sql.replace('??',dataBody)
+   
+    db.run(sql , (err:any, result:any)=>{
+     if (err){
+         res.status(400).json({"error": err.message})
+         return;
+     }
+     res.json({
+         "message": "exito",
+     })
+   })    
 })
 
 usuariosRouter.delete("/:id",(req:Request,res:Response)=>{
