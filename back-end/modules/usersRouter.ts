@@ -1,7 +1,7 @@
 import * as express from "express"
 const usuariosRouter = express.Router();
 import { Request,Response } from "express";
-
+import db from "../sqlitedb/db";
 
 usuariosRouter.get("/csv",async(req:Request,res:Response)=>{    
 })
