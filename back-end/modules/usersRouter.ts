@@ -121,7 +121,37 @@ usuariosRouter.put("/:id",(req,res)=>{
    })    
 })
 
+///eliminar fila
 usuariosRouter.delete("/:id",(req:Request,res:Response)=>{
+//verifico usuario porsiaca nno existe
+const getQuery="SELECT * FROM users WHERE id=?"
+const params=[req.params.id]
+db.get(getQuery,params, (err:any, row:any) => {
+    if (err) {
+      res.status(400).json({"error":err.message});
+      return;
+    }
+    if(typeof row==="undefined"){
+        res.status(404).send({
+            "message":"usuario no encontrado"
+        })
+        return
+    }
+    // finalmente elimino
+    const sql ="DELETE FROM users WHERE id=?";
+    const params1 =[req.params.id]
+    db.run(sql, params1, (err:any, result:any)=>{
+      if (err){
+          res.status(400).json({
+            "message":err.message
+          })
+          return;
+      }
+      res.json({
+          "message": "exito",
+      })
+    })
+  })    
 })
 
 export default usuariosRouter

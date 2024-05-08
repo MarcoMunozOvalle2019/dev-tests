@@ -1,0 +1,44 @@
+curl --location --request GET 'localhost:3000/api/' \
+--data-raw ''
+
+curl --location --request GET 'localhost:3000/api/user/1' \
+--data-raw ''
+
+curl --location --request POST 'localhost:3000/api/' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+   "Mail_Agricultor":"111",
+   "Nombre_Agricultor":"2",
+   "Apellido_Agricultor":"3", 
+   "Mail_Cliente":"4", 
+   "Nombre_Cliente":"5", 
+   "Apellido_Cliente":"6", 
+   "Nombre_Campo":"7", 
+   "Ubicación_de_Campo":"8", 
+   "Fruta_Cosechada":"9", 
+   "Variedad_Cosechada":"10" 
+}'
+
+curl --location --request GET 'localhost:3000/api/csv' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "name":"marco", 
+    "email":"m@m.net"
+}'
+
+
+curl --location --request PUT 'localhost:3000/api/1' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+   "Nombre_Agricultor":"*****************",
+   "Mail_Cliente":"//////////////////"
+}'
+
+
+
+curl --location --request DELETE 'localhost:3000/api/1' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+   "Nombre_Agricultor":"2",
+   "Mail_Cliente":"56"
+}'
