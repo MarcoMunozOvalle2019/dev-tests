@@ -36,8 +36,11 @@ usuariosRouter.get("/csv",async(req:Request,res:Response)=>{
     fs.createReadStream(  path.join(__dirname+'/../cosechas.csv')  )
       .pipe(parse({ delimiter: ",", from_line: 2 }))
       .on("data", (row:any)=> {
+      
         // carga db con csv
-        carga(row[0].split(';'))
+        if(row[0]!==';;;;;;;;;') { // TODO:salta lineas vacias, mejorar esto!
+            if(row){carga(row[0].split(';'))}
+        }
         
       })
       .on("end", ()=> {
