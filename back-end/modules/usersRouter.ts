@@ -92,7 +92,11 @@ usuariosRouter.get("/user/:id",(req:Request,res:Response)=>{
 
 })
 
+// crea un usuario
 usuariosRouter.post("/",(req:Request,res:Response)=>{
+    const body:Fila=req.body
+    carga(Object.values(body))
+    res.json({"message":"exito"}) 
 })
 
 usuariosRouter.put("/:id",(req,res)=>{
