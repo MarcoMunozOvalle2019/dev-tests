@@ -53,6 +53,7 @@ usuariosRouter.get("/csv",async(req:Request,res:Response)=>{
       
 })
 
+// obtener usuarios
 usuariosRouter.get("/",(req:Request,res:Response)=>{
     const getQuery="SELECT * FROM users"
     db.all(getQuery, (err:any, rows:any) => {
@@ -67,7 +68,28 @@ usuariosRouter.get("/",(req:Request,res:Response)=>{
       });
 })
 
-usuariosRouter.get("/user",(req:Request,res:Response)=>{
+//obtener un usuario
+usuariosRouter.get("/user/:id",(req:Request,res:Response)=>{
+    const id=req.params.id
+    const getQuery="SELECT * FROM users WHERE id=?"
+    const params=[id]
+    db.get(getQuery,params, (err:any, row:any) => {
+        if (err) {
+          res.status(400).json({"error":err.message});
+          return;
+        }
+        if(typeof row==="undefined"){
+            res.status(404).send({
+                "message":"no encontrado"
+            })
+            return
+        }
+        res.json({
+            "message":"exito",
+            "data":row
+        })
+      });
+
 })
 
 usuariosRouter.post("/",(req:Request,res:Response)=>{
