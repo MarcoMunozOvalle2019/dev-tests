@@ -2,10 +2,34 @@ import * as express from "express"
 import db from "../sqlitedb/db";
 const usuariosRouter = express.Router();
 import { Request,Response } from "express";
+const fs = require("fs");
 
+const carga=(data:any)=>{  
+    const [
+           Mail_Agricultor,
+           Nombre_Agricultor,	
+           Apellido_Agricultor,         
+           Mail_Cliente,	
+           Nombre_Cliente,	
+           Apellido_Cliente,	
+           Nombre_Campo,	
+           Ubicación_de_Campo,	
+           Fruta_Cosechada,	
+           Variedad_Cosechada]=data
+         
+    const sql ="INSERT INTO users (Mail_Agricultor, Nombre_Agricultor, Apellido_Agricultor, Mail_Cliente,	Nombre_Cliente,	Apellido_Cliente,	Nombre_Campo,	Ubicación_de_Campo,	Fruta_Cosechada,	Variedad_Cosechada) VALUES (?,?,?,?,?,?,?,?,?,?)";
+    const params =[Mail_Agricultor, Nombre_Agricultor, Apellido_Agricultor,	Mail_Cliente,	Nombre_Cliente,	Apellido_Cliente,	Nombre_Campo,	Ubicación_de_Campo,	 Fruta_Cosechada,	Variedad_Cosechada]
+    db.run(sql, params, (err:any, result:any)=>{
+      if (err){
+          return err;
+      }
+      console.log('correcto')
+      return;
+    })  
+  }
 
 usuariosRouter.get("/csv",async(req:Request,res:Response)=>{    
-
+    
 })
 
 usuariosRouter.get("/",(req:Request,res:Response)=>{
